@@ -1,0 +1,23 @@
+From f269446f0248540910a5c0b30b741f678d695f06 Mon Sep 17 00:00:00 2001
+From: Peter Hawkins <peterh@debian.org>
+Date: Thu, 8 Oct 2015 09:31:53 -0700
+Subject: Patch makefile to issue correct setup.py call.
+
+Patch-Name: 02_makefile.patch
+---
+ dist/Makefile.in | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/dist/Makefile.in b/dist/Makefile.in
+index 62920f7..c07dc59 100644
+--- a/dist/Makefile.in
++++ b/dist/Makefile.in
+@@ -36,7 +36,7 @@ install_py_lib: mod_python src
+ 	if test -z "$(DESTDIR)" ; then \
+ 		$(PYTHON_BIN) setup.py install --optimize 2 --force ; \
+ 	else \
+-		$(PYTHON_BIN) setup.py install --optimize 2 --force --root $(DESTDIR) ; \
++		$(PYTHON_BIN) setup.py install --install-layout=deb --force --root $(DESTDIR) --no-compile ; \
+ 	fi
+ 
+ mod_python.so:

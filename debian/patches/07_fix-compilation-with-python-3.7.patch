@@ -1,0 +1,56 @@
+From: Peter Chubb <peter.chubb@data61.csiro.au>
+Date: Fri, 1 Nov 2019 12:54:37 +1100
+Subject: Fix compilation with python 3.7
+
+_PyImport_FixupExtensionObject now takes four arguments.
+The libpython library is now 2-digit versioned (at least on Debian), so
+use -lpython3.7 not -lpython3 at link time.
+The StringField class subclasses bytes, which needs a str() as its
+initialiser.
+Py_GetPath() and Py_GetProgramFullPath() return wide-char strings,
+so use %ls when printing.
+---
+diff --git a/lib/python/mod_python/util.py b/lib/python/mod_python/util.py
+index 393da84..3020f95 100644
+--- a/lib/python/mod_python/util.py
++++ b/lib/python/mod_python/util.py
+@@ -156,7 +156,7 @@ else:
+         disp_options = None
+ 
+         def __new__(self, value):
+-            return bytes.__new__(self, value)
++            return bytes.__new__(self, str(value), "utf-8")
+ 
+         def __init__(self, value):
+             self.value = value
+diff --git a/src/_apachemodule.c b/src/_apachemodule.c
+index 1f273df..7073939 100644
+--- a/src/_apachemodule.c
++++ b/src/_apachemodule.c
+@@ -851,7 +851,8 @@ PyObject *_apache_module_init()
+ #else
+     m = PyModule_Create(&_apache_moduledef);
+     PyObject *name = PyUnicode_FromString("_apache");
+-    _PyImport_FixupExtensionObject(m, name, name);
++    PyObject * modules = PyImport_GetModuleDict();
++    _PyImport_FixupExtensionObject(m, name, name, modules);
+ #endif
+     d = PyModule_GetDict(m);
+     Mp_ServerReturn = PyErr_NewException("_apache.SERVER_RETURN", NULL, NULL);
+diff --git a/src/mod_python.c b/src/mod_python.c
+index 2fe01ea..7839388 100644
+--- a/src/mod_python.c
++++ b/src/mod_python.c
+@@ -747,10 +747,10 @@ static int python_init(apr_pool_t *p, apr_pool_t *ptemp,
+                      "python_init: Python version mismatch, expected '%s', found '%s'.",
+                      py_compile_version, py_dynamic_version);
+         ap_log_error(APLOG_MARK, APLOG_ERR, 0, s,
+-                     "python_init: Python executable found '%s'.",
++                     "python_init: Python executable found '%ls'.",
+                      (char *)Py_GetProgramFullPath());
+         ap_log_error(APLOG_MARK, APLOG_ERR, 0, s,
+-                     "python_init: Python path being used '%s'.",
++                     "python_init: Python path being used '%ls'.",
+                      (char *)Py_GetPath());
+     }
+ 

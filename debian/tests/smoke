@@ -1,0 +1,23 @@
+#!/bin/sh
+set -e
+
+cat >> /etc/apache2/apache2.conf <<EOT
+<Directory /var/www/html/python/>
+  SetHandler mod_python
+  PythonHandler mod_python.publisher
+</Directory>
+EOT
+
+mkdir /var/www/html/python
+cat > /var/www/html/python/hello.py <<EOT
+#!/usr/bin/python3
+
+def index():
+    return "Hello, world!\n"
+EOT
+
+a2enmod python
+service apache2 reload
+
+output=`wget -O- http://localhost/python/hello.py 2>/dev/null`
+test "$output" = "Hello, world!"

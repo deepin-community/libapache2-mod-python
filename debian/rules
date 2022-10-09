@@ -1,0 +1,15 @@
+#!/usr/bin/make -f
+
+#export DH_VERBOSE=1
+
+export DEB_BUILD_MAINT_OPTIONS=hardening=+all
+
+
+PYTHON=/usr/bin/python3
+
+%:
+	dh $@ --with autoreconf,python3,apache2
+
+override_dh_auto_configure:
+	dh_auto_configure -- --with-apxs=/usr/bin/apxs2 --with-python=$(PYTHON)
+

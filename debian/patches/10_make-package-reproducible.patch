@@ -1,0 +1,17 @@
+From: Bastian Germann <bastiangermann@fishpost.de>
+Date: Tue, 11 Aug 2020 02:15:52 +0200
+Subject: Make package reproducible
+---
+diff --git a/dist/setup.py.in b/dist/setup.py.in
+index 68581f3..3d7aac4 100644
+--- a/dist/setup.py.in
++++ b/dist/setup.py.in
+@@ -101,8 +101,6 @@ def generate_version_py():
+         version_py.write('APR_VERSION = "@APR_VERSION@"\n')
+         version_py.write('LIBEXECDIR = "@LIBEXECDIR@"\n')
+         version_py.write('SYSCONFDIR = "@SYSCONFDIR@"\n')
+-        version_py.write('TEST_MOD_PYTHON_SO = "@TEST_MOD_PYTHON_SO@" #NB: This is for test.py only\n')
+-        version_py.write('TESTHOME = "@TEST_SERVER_ROOT@"\n')
+         version_py.write('PYTHON_BIN = "@PYTHON_BIN@"\n')
+ 
+ 

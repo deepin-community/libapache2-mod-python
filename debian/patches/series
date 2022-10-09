@@ -1,0 +1,7 @@
+01_configure.patch
+02_makefile.patch
+03_ignore-git-version.patch
+05_fix_spelling.patch
+07_fix-compilation-with-python-3.7.patch
+09_create-DESTDIR-BINDIR-if-needed.patch
+10_make-package-reproducible.patch

@@ -1,0 +1,23 @@
+From 9cfdf6a5544e67ccfab71ef23544db0faf09d65b Mon Sep 17 00:00:00 2001
+From: Arthur de Jong <adejong@debian.org>
+Date: Thu, 8 Oct 2015 09:31:56 -0700
+Subject: Simple spelling fix in Python docstring (thanks lintian)
+
+Patch-Name: 05_fix_spelling.patch
+---
+ src/requestobject.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/requestobject.c b/src/requestobject.c
+index 7569335..d916dc3 100644
+--- a/src/requestobject.c
++++ b/src/requestobject.c
+@@ -2247,7 +2247,7 @@ static PyGetSetDef request_getsets[] = {
+     {"no_local_copy", (getter)getreq_recmbr, (setter)setreq_recmbr, "There is no local copy of the response", "no_local_copy"},
+     {"unparsed_uri",  (getter)getreq_recmbr, NULL, "The URI without any parsing performed", "unparsed_uri"},
+     {"filename",      (getter)getreq_recmbr, (setter)setreq_recmbr, "The file name on disk that this request corresponds to", "filename"},
+-    {"canonical_filename", (getter)getreq_recmbr, (setter)setreq_recmbr, "The true filename (req.filename is canonicalized if they dont match)", "canonical_filename"},
++    {"canonical_filename", (getter)getreq_recmbr, (setter)setreq_recmbr, "The true filename (req.filename is canonicalized if they don't match)", "canonical_filename"},
+     {"path_info",     (getter)getreq_recmbr, (setter)setreq_recmbr, "Path_info, if any", "path_info"},
+     {"args",          (getter)getreq_recmbr, (setter)setreq_recmbr, "QUERY_ARGS, if any", "args"},
+     {"finfo",         (getter)getreq_rec_fi, (setter)setreq_recmbr, "File information", "finfo"},

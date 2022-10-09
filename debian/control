@@ -1,0 +1,38 @@
+Source: libapache2-mod-python
+Section: httpd
+Priority: optional
+Maintainer: Debian Python Team <team+python@tracker.debian.org>
+Uploaders: Robert S. Edmonds <edmonds@debian.org>
+Build-Depends: apache2-dev (>> 2.4~),
+               debhelper-compat (= 12),
+               dh-apache2,
+               dh-python,
+               python3-dev
+Vcs-Git: https://salsa.debian.org/python-team/packages/libapache2-mod-python.git
+Vcs-Browser: https://salsa.debian.org/python-team/packages/libapache2-mod-python
+Homepage: http://www.modpython.org/
+Standards-Version: 4.4.1
+
+Package: libapache2-mod-python
+Architecture: any
+Depends: ${misc:Depends}, ${python3:Depends}, ${shlibs:Depends}
+Suggests: libapache2-mod-python-doc
+Description: Python-embedding module for Apache 2
+ The mod_python module supports web applications written in Python.
+ Because the parser is embedded in the server as an Apache module, it
+ will run much faster than traditional CGI.
+ .
+ This package is built for the current Python 3 version.
+
+Package: libapache2-mod-python-doc
+Architecture: all
+Multi-Arch: foreign
+Depends: ${misc:Depends}
+Suggests: www-browser
+Section: doc
+Description: Python-embedding module for Apache 2 - documentation
+ The mod_python module supports web applications written in Python.
+ Because the parser is embedded in the server as an Apache module, it
+ will run much faster than traditional CGI.
+ .
+ This package contains the module documentation in HTML format.

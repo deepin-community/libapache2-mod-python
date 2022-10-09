@@ -1,0 +1,15 @@
+Document: libapache2-mod-python-doc
+Title: Apache Mod_python Manual
+Author: Gregory Trubetskoy <grisha@apache.org>
+Abstract: Mod_python allows embedding Python within the Apache server for a
+ considerable boost in performance and added flexibility in designing web based
+ applications.
+ .
+ This document aims to be the only necessary and authoritative source 
+ of information about mod_python, usable as a comprehensive reference, a
+ user guide and a tutorial all-in-one.
+Section: Programming/Python
+
+Format: HTML
+Index: /usr/share/doc/libapache2-mod-python/doc-html/index.html
+Files: /usr/share/doc/libapache2-mod-python/doc-html/*.html

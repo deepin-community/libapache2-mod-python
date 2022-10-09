@@ -1,0 +1,519 @@
+libapache2-mod-python (3.5.0-1) unstable; urgency=medium
+
+  [ Emmanuel Arias ]
+  * Team upload.
+  * d/control: Bump Standard-Version to 4.4.1.
+  * d/rules: add DEB_BUILD_MAINT_OPTIONS=hardening=+all.
+  * Run wrap_and_sort.
+  * Remove support for Python 2 (Closes: #883157).
+  * d/rules: Remove override_dh_auto_clean.
+  * d/patches: Remove unnecessary patches.
+    - 06_fix-bug-with-query-string-parameters-in-python3.patch
+      is superseded by 07_fix-compilation-with-python-3.7.patch.
+    - 08_allow-building-with-older-libpython.patch used for
+      old libpython. No longer needed.
+
+  [ Arthur de Jong ]
+  * Add DEP8 smote test by Robie Basak (Closes: #715399)
+
+  [ Ondřej Nový ]
+  * Fixed VCS URL (https)
+  * d/control: Set Vcs-* to salsa.debian.org
+  * d/control: Remove XS-Testsuite field, not needed anymore
+  * Convert git repository from git-dpm to gbp layout
+  * Use debhelper-compat instead of debian/compat.
+  * d/control: Update Maintainer field with new Debian Python Team
+    contact address.
+  * d/control: Update Vcs-* fields with new Debian Python Team Salsa
+    layout.
+
+  [ Bastian Germann ]
+  * Watch dist.modpython.org
+  * Remove X-Python-Version
+  * Revert "Use debhelper instead of debhelper-compat"
+  * Obvious patch refreshes
+  * Disable 04_autoconf_python_multiarch.patch
+  * d/rules: Configure with python3 executable (Closes: #966751)
+  * Add upstream patches for python3
+  * README is renamed upstream
+  * dh-autoreconf is not needed with compat 12
+  * d/copyright: Convert to DEP-5
+  * Exclude sphinx template
+  * New upstream version 3.5.0 (Closes: #740369)
+
+ -- Emmanuel Arias <eamanu@yaerobi.com>  Wed, 02 Sep 2020 13:43:25 -0300
+
+libapache2-mod-python (3.3.1-11) unstable; urgency=low
+
+  * Team upload.
+  * Upload to unstable.
+
+ -- Arthur de Jong <adejong@debian.org>  Fri, 28 Jun 2013 13:13:39 +0200
+
+libapache2-mod-python (3.3.1-10) experimental; urgency=low
+
+  * Team upload.
+
+  [ Arthur de Jong ]
+  * Switch to dh_python2 based on the patch in Ubuntu. (Closes: #616858,
+    LP: #788514)
+  * FTBFS: switch configure.in to pkg-config to configure Python. This fixes
+    discovery with multiarch Python. Taken from the Ubuntu packaging
+    (LP: #1098597) (closes: #710640).
+  * Remove version from apache2-threaded-dev build dependency because every
+    version since etch is new enough.
+  * Dropped provides/replaces/conflicts for ancient versions of mod_python.
+  * Switch from dpatch to source format 3.0 (quilt).
+  * Dropped obsolete patch 03_includes.patch: long since been fixed in
+    mod_python.
+  * Switch to dh-style debian/rules.
+  * Switch to debhelper compatibility level 9.
+  * Update 02_makefile.patch to add --install-layout=deb to the setup.py
+    call.
+  * Remove generated file to support building twice in a row.
+  * Simple spelling fix in Python docstring (thanks lintian).
+  * Remove code for renaming mod_python.load to python.load because we are
+    not supporting upgrades from etch.
+  * Update watch file provided by Bart Martens.
+  * Update to Standards-Version 3.9.4.
+  * Build with Apache 2.4 (closes: #666796):
+    - use dh_apache2 (remove postinst and prerm)
+    - 20_apache24.patch: fixes for Apache 2.4.
+
+  [ Jakub Wilk ]
+  * Use canonical URIs for Vcs-* fields.
+
+ -- Arthur de Jong <adejong@debian.org>  Sun, 26 May 2013 23:48:10 +0200
+
+libapache2-mod-python (3.3.1-9) unstable; urgency=low
+
+  [ Sandro Tosi ]
+  * debian/libapache2-mod-python.{prerm, postrm}
+    - move a2dismod from postrm (executed too late in the purge process) to
+      prerm, so purge can disable the module when it's still available; thanks
+      to Lucas Nussbaum for the report; Closes: #574229
+  * debian/control
+    - bump Standards-Version to 3.8.4 (no changes needed)
+    - updated Section to 'httpd' to match override file
+
+ -- Debian Python Modules Team <python-modules-team@lists.alioth.debian.org>  Sat, 27 Mar 2010 14:41:02 +0100
+
+libapache2-mod-python (3.3.1-8) unstable; urgency=medium
+
+  [ Emilio Pozuelo Monfort ]
+  * Unconditionally enable the Apache module upon first install, instead
+    of asking the user through debconf. Closes: #512755.
+  * Remove debconf templates and build magic because of the above change.
+
+  [ Sandro Tosi ]
+  * debian/patches/10_bts521965.dpatch
+    - fix a FTBFS due to new apr (> 1.3.x); thanks to Daniel Schepler for the
+      report; Closes: #521965 (RC hence urgency=medium)
+  * debian/control
+    - bump Standards-Version to 3.8.2 (no changes needed)
+  * debian/libapache2-mod-python.postinst
+    - use 'dpkg --compare-versions'
+
+ -- Debian Python Modules Team <python-modules-team@lists.alioth.debian.org>  Wed, 08 Jul 2009 00:16:42 +0200
+
+libapache2-mod-python (3.3.1-7) unstable; urgency=low
+
+  [ Sandro Tosi ]
+  * debian/po/pt_BR.po
+    - updated Brazilian Portuguese debconf templates translation; thanks to
+      Eder L. Marques for the report and patch; Closes: #511886
+  * debian/po/nl.po
+    - updated Dutch debconf templates translation; thanks to Thijs Kinkhorst and
+      Vincent Zweije; for location of translated po file, have a look at
+      http://lists.debian.org/debian-l10n-dutch/2009/01/msg00031.html
+
+ -- Debian Python Modules Team <python-modules-team@lists.alioth.debian.org>  Fri, 30 Jan 2009 11:26:57 +0100
+
+libapache2-mod-python (3.3.1-6) unstable; urgency=low
+
+  [ Sandro Tosi ]
+  * debian/control
+    - switch Vcs-Browser field to viewsvn
+    - add ${misc:Depends} to bin packages Depends
+  * debian/po/es.po
+    - updated Spanish debconf translation; thanks to Francisco Javier Cuadrado;
+      Closes: #506982
+  * debian/libapache2-mod-python.postrm
+    - added 'set -e'
+
+ -- Debian Python Modules Team <python-modules-team@lists.alioth.debian.org>  Thu, 18 Dec 2008 08:51:47 +0100
+
+libapache2-mod-python (3.3.1-5) unstable; urgency=low
+
+  [ Sandro Tosi ]
+  * debian/po/eu.po
+    - updated Basque debconf translation; thanks to Xabier Bilbao;
+      Closes: #492409
+
+ -- Debian Python Modules Team <python-modules-team@lists.alioth.debian.org>  Mon, 11 Aug 2008 00:00:01 +0200
+
+libapache2-mod-python (3.3.1-4) unstable; urgency=low
+
+  [ Sandro Tosi ]
+  * debian/control
+    - uniforming Vcs-Browser field
+    - bump Standards-Version to 3.8.0
+      + added debian/README.source
+  * debian/po/tr.po
+    - added Turkish debconf translation; thanks to Mert Dirik; Closes: #491240
+  * debian/po/sv.po
+    - updated Swedish debconf translation; thanks to Martin Bagge;
+      Closes: #490788
+  * debian/po/sk.po
+    - updated Slovak debconf translation; thanks to Ivan Masár;
+      Closes: #483521
+  * debian/po/gl.po
+    - updated Galician debconf translation; thanks to Jacobo Tarrio;
+      Closes: #480976
+  * debian/po/vi.po
+    - updated Vietnamese debconf translation; thanks to Clytie Siddall;
+      Closes: #491435
+  * debian/libapache2-mod-python-doc.doc-base
+    - updated Section to Programming/Python
+  * debian/po/eu.po
+    - added Basque debconf translation; thanks to Xabier Bilbao;
+      Closes: #492043
+  * debian/patches/{01_configure,02_makefile,03_includes}.dpatch
+    - renamed from <file>.diff
+    - added dpatch header and remove the scripting code
+
+  [ Norbert Tretkowski ]
+  * Remove myself from uploaders.
+
+  [ David Paleino ]
+  * Removed myself from Uploaders.
+
+  [ Piotr Ożarowski ]
+  * Remove myself from uploaders.
+
+ -- Debian Python Modules Team <python-modules-team@lists.alioth.debian.org>  Thu, 24 Jul 2008 19:41:46 +0200
+
+libapache2-mod-python (3.3.1-3) unstable; urgency=low
+
+  [ Piotr Ożarowski ]
+  * Rename mod_python.load to python.load (to follow
+    /etc/apache2/mods-available best practise, closes: 456917)
+  * Rename XS-Vcs-* fields to Vcs-* (dpkg supports them now)
+  * Added initial Slovak debconf translation from Ivan Masár (closes: #438584)
+  * Updated Vietnamese debconf translation from Clytie Siddall
+    (closes: #453622)
+  * Define debhelper's compatibility mode in debian/compat instead of
+    debian/rules (to make lintian happy)
+  * Change libapache2-mod-python-doc's section to "doc"
+  * Bump Standards-Version to 3.7.3 (no changes needed)
+
+  [ David Paleino ]
+  * debian/po/it.po updated (closes: #451608)
+  * debian/control:
+    - added myself to Uploaders
+    - added Homepage field
+    - wrapped Uploaders, Build-Depends and Conflicts fields
+  * debian/rules:
+    - don't ignore the value of $(MAKE) distclean
+    - removed useless commented dh_* calls
+    - some minor changes
+
+  [ Christian Perrier ]
+  * Debconf templates and debian/control reviewed by the debian-l10n-english
+    team as part of the Smith review project. Closes: #450417
+  * [Debconf translation updates]
+  * Japanese. Closes: #450900
+  * Portuguese. Closes: #451020
+  * Finnish. Closes: #451148
+  * Italian. Closes: #451608
+  * German. Closes: #451881
+  * French. Closes: #452636
+  * Russian. Closes: #434229, #452735
+  * Polish. Closes: #452960
+  * Czech. Closes: #453030
+
+ -- Piotr Ożarowski <piotr@debian.org>  Thu, 27 Dec 2007 17:06:19 +0100
+
+libapache2-mod-python (3.3.1-2) unstable; urgency=low
+
+  [ Norbert Tretkowski ]
+  * Added Piotr Ożarowski as uploader.
+
+  [ Robert S. Edmonds ]
+  * Add updated po-debconf templates. (closes: #421528, #427030)
+
+ -- Robert S. Edmonds <edmonds@debian.org>  Fri, 15 Jun 2007 21:40:28 -0400
+
+libapache2-mod-python (3.3.1-1) unstable; urgency=low
+
+  * New upstream release
+  * Remove configure and mod_python.h files in clean rule to make the diff.gz
+    file smaller
+  * Current Python version in libapache2-mod-pythonX.Y package name (Provides:
+    field) filled in automatically.
+  * Added XS-Vcs-Browser field
+
+ -- Piotr Ożarowski <piotr@debian.org>  Thu, 12 Apr 2007 20:52:05 +0200
+
+libapache2-mod-python (3.2.10-4) unstable; urgency=low
+
+  * Added XS-Vcs-Svn field
+  * Removed "db_purge" part from libapache2-mod-python.postrm
+    (dh_installdebconf is generating a rule that will not fail if debconf is
+    already removed)
+  * Added initial Spanish debconf translation from Manuel Porras Peralta.
+    (closes: #411235)
+  * Added initial Portuguese debconf translation from Pedro Ribeiro.
+    (closes: #411742)
+  * Added initial Galician debconf translation from Jacobo Tarrio.
+    (closes: #411831)
+
+ -- Piotr Ozarowski <ozarow@gmail.com>  Wed, 21 Feb 2007 18:24:29 +0100
+
+libapache2-mod-python (3.2.10-3) unstable; urgency=medium
+
+  [ Piotr Ozarowski ]
+  * Rebuild for Python 2.4.4. (closes: #398680)
+  * Removed libapache2-mod-python2.3 from Provides. (closes: #393927)
+  * Added initial German debconf translation from Matthias Julius.
+    (closes: #394949)
+  * Removed no longer needed debian/pycompat file.
+
+ -- Norbert Tretkowski <nobse@debian.org>  Sun, 19 Nov 2006 22:08:41 +0100
+
+libapache2-mod-python (3.2.10-2) unstable; urgency=medium
+
+  [ Piotr Ozarowski ]
+  * Dependencies updated:
+    + replaced apache2-common with apache2.2-common (closes: #391790)
+    + bumped apache2-threaded-dev version (see above),
+    + bumped python-central version (dh_python removed from debian/rules),
+    + bumped debhelper version (see above),
+    + added po-debconf to Build-Depends (lintian error).
+  * Removed deprecated dh_installmanpages from debian/rules
+    (there are no manpages to install).
+  * Updated Dutch debconf translation from Vincent Zweije. (closes: #388834)
+  * Updated Czech debconf translation from Miroslav Kure. (closes: #384752)
+  * Updated Japanese debconf translation from Hideki Yamane. (closes: #391811)
+
+ -- Norbert Tretkowski <nobse@debian.org>  Thu, 12 Oct 2006 17:14:47 +0200
+
+libapache2-mod-python (3.2.10-1) unstable; urgency=low
+
+  * New upstream release.
+  * Updated 01_configure.diff patches for new release.
+  * Updated Standards-Version to 3.7.2.1, no changes required.
+
+ -- Norbert Tretkowski <nobse@debian.org>  Sat, 19 Aug 2006 10:58:20 +0200
+
+libapache2-mod-python (3.2.8-3) unstable; urgency=low
+
+  [ Jeremie Corbier ]
+  * New python policy transition. (closes: #373561)
+  * Added initial dutch debconf translation from Vincent Zweije.
+    (closes: #368649)
+  * Updated french debconf translation from Jean-Luc Coulon.
+    (closes: #376547)
+  * Updated italian debconf translation from Luca Monducci.
+    (closes: #382088)
+
+  [ Piotr Ozarowski ]
+  * Added initial polish debconf translation.
+
+ -- Norbert Tretkowski <nobse@debian.org>  Fri, 18 Aug 2006 12:41:39 +0200
+
+libapache2-mod-python (3.2.8-2) unstable; urgency=medium
+
+  [ Norbert Tretkowski ]
+  * Added initial italian debconf translation from Luca Monducci.
+    (closes: #368342)
+  * Acknowledge Non-Maintainer Upload 3.1.3-2.1. (closes: #266188)
+
+  [ Robert S. Edmonds ]
+  * Patching the generated configure script is wrong and unnecessary.
+    (closes: #370234, #375582)
+
+  [ Piotr Ozarowski ]
+  * Added watch file.
+
+ -- Norbert Tretkowski <nobse@debian.org>  Sun, 30 Jul 2006 11:02:27 +0200
+
+libapache2-mod-python (3.2.8-1) unstable; urgency=low
+
+  * New upstream release. (closes: #360654)
+    + Correctly support the HEAD method. (closes: #297289)
+    + Correctly recognizes DirectoryIndex instruction. (closes: #358750)
+    + Fixes segfaults with apache2-mpm-worker. (closes: #365302)
+
+  [ Robert S. Edmonds ]
+  * Added python2.4 packages. (closes: #347219)
+  * Backported bash 3.1 configure script fix from upstream.
+    (closes: #367450)
+
+  [ Norbert Tretkowski ]
+  * Set Maintainer to Debian Python Modules Team.
+  * Added Robert and myself to uploaders.
+  * Removed python2.2 packages. (closes: #353805, #362474)
+  * Depend on debconf | debconf-2.0. (closes: #331996)
+  * Updated french debconf translation from Jean-Luc Coulon.
+    (closes: #287245)
+  * Added initial vietnamese debconf translation from Clytie Siddall.
+    (closes: #312233)
+  * Added initial brazilian portuguese debconf translation from Andre Luis
+    Lopes. (closes: #262564)
+  * Added initial czech debconf translation from Miroslav Kure.
+    (closes: #289510)
+  * Added initial swedish debconf translation from Daniel Nylander.
+    (closes: #333404)
+  * Fixed typo in all debconf translations. (closes: #316296)
+  * Added doc-base file from Paul Brossier. (closes: #331012)
+  * Run debconf-updatepo in clean target.
+  * Adjusted README.Debian to it reflects the new packages.
+  * Updated standards-version to 3.7.2.0, no changes required.
+  * Splitted out patches and used dpatch instead.
+  * Fixed debconf templates to make lintian happy.
+
+ -- Norbert Tretkowski <nobse@debian.org>  Tue, 16 May 2006 18:45:41 -0500
+
+libapache2-mod-python (3.1.3-3) unstable; urgency=high
+
+  * Security bug fix for information leak vulnerability CVE CAN-2005-0088.
+
+ -- Peter Hawkins <peterh@debian.org>  Fri, 11 Feb 2005 22:23:27 +1100
+
+libapache2-mod-python (3.1.3-2.2) unstable; urgency=high
+
+  * NMU, reverting the LFS transition made in the previous upload
+  * Bump apache2 build-dep to (>= 2.0.50-10)
+
+ -- Adam Conrad <adconrad@0c3.net>  Sat, 21 Aug 2004 05:51:54 -0600
+
+libapache2-mod-python (3.1.3-2.1) unstable; urgency=medium
+
+  * NMU for apache2 LFS transition (closes: #266188)
+  * Bump apache2-threaded-dev build-dep to (>= 2.0.50-9)
+
+ -- Adam Conrad <adconrad@0c3.net>  Tue, 17 Aug 2004 08:16:34 -0600
+
+libapache2-mod-python (3.1.3-2) unstable; urgency=low
+
+  * Added python to the build dependencies. (closes: #259327)
+  * Added dependency on apache2 for libapache2-mod-python2.[23].
+    (closes: #252403)
+  * Added French and Japanese debconf translations.
+    (closes: #243656, #258787)
+
+ -- Peter Hawkins <peterh@debian.org>  Wed, 14 Jul 2004 17:01:04 +1000
+
+libapache2-mod-python (3.1.3-1) unstable; urgency=low
+
+  * New upstream release (closes: #236889, #241320)
+  * debian/*.templates, debian/control: Updated package to make it
+    compatible with po2debconf.
+
+ -- Peter Hawkins <peterh@debian.org>  Thu,  1 Apr 2004 21:54:32 +1000
+
+libapache2-mod-python (3.0.4-2) unstable; urgency=low
+
+  * debian/control: Change apache2-dev build dependency to
+    apache2-threaded-dev, since apache2-dev became a virtual package.
+    (closes: #225179)
+
+ -- Peter Hawkins <peterh@debian.org>  Sun, 28 Dec 2003 10:30:39 +1100
+
+libapache2-mod-python (3.0.4-1) unstable; urgency=low
+
+  * New upstream version, which fixes segmentation faults on empty query
+    string components when using the publisher handler.
+  * debian/rules: Build binary-all packages in the binary-indep target,
+    not in binary-arch (closes: #214267)
+
+ -- Peter Hawkins <peterh@debian.org>  Thu, 13 Nov 2003 16:50:23 +1100
+
+libapache2-mod-python (3.0.3-3) unstable; urgency=medium
+
+  * Fixed autoconf invocation from debian/rules.
+
+ -- Peter Hawkins <peterh@debian.org>  Sun,  5 Oct 2003 13:29:10 +1000
+
+libapache2-mod-python (3.0.3-2) unstable; urgency=medium
+
+  * Acknowledge NMUs (closes: #208278, #206197, #206661).
+  * Update standards version to 3.6.1
+  * Removed build dependency on apache2.
+
+ -- Peter Hawkins <peterh@debian.org>  Sat,  4 Oct 2003 10:58:18 +1000
+
+libapache2-mod-python (3.0.3-1.2) unstable; urgency=low
+
+  * NMU.
+  * Add build dependency on python2.3-dev (closes: #208278).
+
+ -- Matthias Klose <doko@debian.org>  Mon,  1 Sep 2003 23:38:03 +0200
+
+libapache2-mod-python (3.0.3-1.1) unstable; urgency=low
+
+  * NMU.
+  * Build libapache2-mod-python2.3 package (closes: #206197, #206661).
+
+ -- Matthias Klose <doko@debian.org>  Tue, 26 Aug 2003 07:20:27 +0200
+
+libapache2-mod-python (3.0.3-1) unstable; urgency=low
+
+  * New upstream release. (closes: #190906)
+  * Added debconf support for enabling/disabling the apache module.
+  * debian/control: Updated standards version to 3.5.10.
+  * debian/rules: Now we use apxs2 from a recent apache2-dev correctly, so the
+    package builds again. (closes: #193362)
+  * debian/control: Fixed typo in conflicts line for libapache2-mod-python2.2.
+
+ -- Peter Hawkins <peterh@debian.org>  Thu, 29 May 2003 15:57:36 +1000
+
+libapache2-mod-python (3.0.1-2) unstable; urgency=low
+
+  * Changed description field so that it no longer mentions PyApache,
+    which was an obsolete reference (closes: #171668)
+  * libapache-mod-python now has a versioned dependency on
+    libapache-mod-python2.2
+  * Fixed postinst and prerm scripts so they don't stomp on
+    the /etc/apache2/mods-available symlink.
+  * Changed standards version to 3.5.8
+
+ -- Peter Hawkins <peterh@debian.org>  Thu,  5 Dec 2002 17:35:45 +1100
+
+libapache2-mod-python (3.0.1-1) unstable; urgency=low
+
+  * New upstream release 3.0.1. Uploaded package to unstable.
+
+ -- Peter Hawkins <peterh@debian.org>  Wed, 27 Nov 2002 17:31:48 +1100
+
+libapache2-mod-python (2.9.999.4-1) unstable; urgency=low
+
+  * New upstream release 3.0.0 beta 4.
+
+ -- Peter Hawkins <peterh@debian.org>  Thu, 31 Oct 2002 09:23:58 +1100
+
+libapache2-mod-python (2.9.999.3-3) unstable; urgency=low
+
+  * Patch from upstream to fix segfault in table_dealloc.
+
+ -- Peter Hawkins <peterh@debian.org>  Wed, 30 Oct 2002 10:36:16 +1100
+
+libapache2-mod-python (2.9.999.3-2) unstable; urgency=low
+
+  * Fixed postrm scripts.
+
+ -- Peter Hawkins <peterh@debian.org>  Sun, 20 Oct 2002 10:50:02 +1000
+
+libapache2-mod-python (2.9.999.3-1) unstable; urgency=low
+
+  * Updated package to mod_python 3.0.0 beta 3.
+  * Fixed a few bugs in Makefiles and package scripts.
+
+ -- Peter Hawkins <peterh@debian.org>  Wed, 16 Oct 2002 10:55:41 +1000
+
+libapache2-mod-python (2.9.999.2-1) unstable; urgency=low
+
+  * Initial package of mod_python 3.0.0 beta 2.
+
+ -- Peter Hawkins <peterh@debian.org>  Sun, 13 Oct 2002 13:20:16 +1000

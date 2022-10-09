@@ -1,0 +1,44 @@
+From fee647835d3027ad3f417dc2d4850fd43e93f258 Mon Sep 17 00:00:00 2001
+From: "Robert S. Edmonds" <edmonds@debian.org>
+Date: Thu, 8 Oct 2015 09:31:52 -0700
+Subject: Patch configure script.
+
+ Remove apache version check for debian package, since we don't want to
+ build-depend on apache2.
+
+Patch-Name: 01_configure.patch
+---
+ configure.in | 18 ++++++++++--------
+ 1 file changed, 10 insertions(+), 8 deletions(-)
+
+diff --git a/configure.in b/configure.in
+index 2865165..94e7a67 100644
+--- a/configure.in
++++ b/configure.in
+@@ -74,16 +74,18 @@ else
+   ALL="dso"
+ 
+   # check Apache version
+-  AC_MSG_CHECKING(Apache version)
+-  HTTPD="`${APXS} -q SBINDIR`/`${APXS} -q TARGET`"
+-  HTTPD_VERSION=`$HTTPD -v | awk '/version/ {print $3}' | awk -F/ '{print $2}' | awk '{print $1}'`
+-  APR_VERSION=`${APXS} -q APR_VERSION`
+-  AC_MSG_RESULT($HTTPD_VERSION)
++# peterh: Remove apache version check for debian package, since we don't
++# want to build-depend on apache2.
++#  AC_MSG_CHECKING(Apache version)
++#  HTTPD="`${APXS} -q SBINDIR`/`${APXS} -q TARGET`"
++#  HTTPD_VERSION=`$HTTPD -v | awk '/version/ {print $3}' | awk -F/ '{print $2}' | awk '{print $1}'`
++#  APR_VERSION=`${APXS} -q APR_VERSION`
++#  AC_MSG_RESULT($HTTPD_VERSION)
+ 
+   # make sure version begins with 2
+-  if test -z "`echo $HTTPD_VERSION | egrep \^2`"; then
+-    AC_MSG_ERROR([This version of mod_python only works with Apache 2. The one we have ($HTTPD) seems to be $HTTPD_VERSION.])
+-  fi
++#  if test -z "`echo $HTTPD_VERSION | egrep \^2`"; then
++#    AC_MSG_ERROR([This version of mod_python only works with Apache 2. The one we have ($HTTPD) seems to be $HTTPD_VERSION.])
++#  fi
+ 
+   # determine LIBEXEC
+   AC_MSG_CHECKING(for Apache libexec directory)

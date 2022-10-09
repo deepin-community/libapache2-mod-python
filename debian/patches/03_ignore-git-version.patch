@@ -1,0 +1,17 @@
+From: Bastian Germann <bastiangermann@fishpost.de>
+Date: Tue, 11 Aug 2020 01:50:15 +0200
+Subject: Ignore git version
+---
+diff --git a/dist/version.sh b/dist/version.sh
+index 1060b4f..815c04e 100755
+--- a/dist/version.sh
++++ b/dist/version.sh
+@@ -5,6 +5,6 @@ MPV_PATH="`dirname $0`/../src/include/mp_version.h"
+ MAJ=`awk '/MP_VERSION_MAJOR/ {print $3}' $MPV_PATH`
+ MIN=`awk '/MP_VERSION_MINOR/ {print $3}' $MPV_PATH`
+ PCH=`awk '/MP_VERSION_PATCH/ {print $3}' $MPV_PATH`
+-GIT=`git describe --always`
++GIT=
+ 
+-echo $MAJ.$MIN.$PCH-$GIT
++echo $MAJ.$MIN.$PCH
